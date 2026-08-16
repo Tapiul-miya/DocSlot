@@ -1,8 +1,9 @@
-const CACHE_NAME = 'sigma-scan-pwa-v9';
+const CACHE_NAME = 'sigma-scan-pwa-v10';
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
+  '/favicon.svg',
   '/icon-192.png',
   '/icon-512.png'
 ];
@@ -38,10 +39,16 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch SW
+// Fetch SW - Cache falling back to network, and dynamically caching assets
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   
+  // Skip Firestore API and Google GenAI API from service worker caching
+  const url = event.request.url;
+  if (url.includes('firestore.googleapis.com') || url.includes('generativelanguage.googleapis.com') || url.includes('identitytoolkit.googleapis.com')) {
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
@@ -61,7 +68,9 @@ self.addEventListener('fetch', (event) => {
           if (event.request.mode === 'navigate') {
             return caches.match('/index.html');
           }
+          return new Response('Offline content unavailable', { status: 503, statusText: 'Offline' });
         });
       })
   );
 });
+

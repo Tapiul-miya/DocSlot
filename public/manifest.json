@@ -1,14 +1,15 @@
 {
   "short_name": "Sigma Scan",
-  "name": "Sigma Scan Diagnostic Center",
-  "description": "সিগমা ডিজিটাল স্ক্যান সেন্টার অনলাইন ডায়াগনস্টিক বুকিং অ্যাপ",
+  "name": "সিগমা ডিজিটাল স্ক্যান সেন্টার (Sigma Scan)",
+  "description": "সিগমা ডিজিটাল স্ক্যান সেন্টার অনলাইন ডায়াগনস্টিক বুকিং ও সিরিয়াল ট্র্যাকিং অ্যাপ",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "theme_color": "#0b111e",
   "background_color": "#0b111e",
+  "categories": ["medical", "health", "productivity"],
   "prefer_related_applications": false,
   "icons": [
     {
