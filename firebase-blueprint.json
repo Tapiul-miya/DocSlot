@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "Booking": {
+      "title": "Booking",
+      "description": "Patient test reservation and digital token record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique booking identifier" },
+        "serialNumber": { "type": "number", "description": "Daily sequential queue number" },
+        "patientName": { "type": "string", "description": "Full name of the patient" },
+        "patientAge": { "type": "number", "description": "Age of the patient in years" },
+        "patientPhone": { "type": "string", "description": "10-digit contact mobile number" },
+        "testId": { "type": "string", "description": "ID of diagnostic scan or test" },
+        "date": { "type": "string", "format": "date", "description": "Booking scheduled date YYYY-MM-DD" },
+        "estimatedTime": { "type": "string", "description": "Reporting time in Bengali display format" },
+        "estimatedTimeEn": { "type": "string", "description": "Reporting time in English format" },
+        "prescriptionUrl": { "type": "string", "description": "Base64 or image URL for prescription" },
+        "status": { "type": "string", "enum": ["confirmed", "completed", "cancelled"], "description": "Current appointment status" },
+        "createdAt": { "type": "string", "description": "Timestamp string of creation" }
+      },
+      "required": ["id", "serialNumber", "patientName", "patientAge", "patientPhone", "testId", "date", "estimatedTime", "status", "createdAt"]
+    },
+    "CenterSettings": {
+      "title": "CenterSettings",
+      "description": "Configuration parameters for diagnostic center working hours and limits",
+      "type": "object",
+      "properties": {
+        "centerOpenTime": { "type": "string", "description": "Start time in HH:MM format" },
+        "centerCloseTime": { "type": "string", "description": "End time in HH:MM format" },
+        "globalDuration": { "type": "number", "description": "Average duration in minutes per test" },
+        "globalDailyLimit": { "type": "number", "description": "Maximum booking capacity per day" },
+        "adminPin": { "type": "string", "description": "Secret PIN for admin dashboard access" }
+      },
+      "required": ["centerOpenTime", "centerCloseTime", "globalDuration", "globalDailyLimit"]
+    }
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Collection of all patient diagnostic booking records"
+    },
+    "/settings/{settingsId}": {
+      "schema": "CenterSettings",
+      "description": "System settings and daily capacity configuration"
+    }
+  }
+}

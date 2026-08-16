@@ -1,0 +1,6 @@
+{
+  "name": "Scan Center Booking",
+  "description": "A mobile-first scan and diagnostic center booking app with real-time serial generation, limited slots, automatic date-time confirmation, and prescription upload.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
