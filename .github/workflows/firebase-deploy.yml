@@ -3,7 +3,9 @@ name: Deploy to Firebase Hosting & Firestore
 on:
   push:
     branches:
-      - main # অথবা আপনার ডিফল্ট ব্রাঞ্চ (যেমন master)
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
   build_and_deploy:
