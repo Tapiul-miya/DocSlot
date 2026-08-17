@@ -1,6 +1,6 @@
 {
-  "name": "Scan Center Booking",
-  "description": "A mobile-first scan and diagnostic center booking app with real-time serial generation, limited slots, automatic date-time confirmation, and prescription upload.",
+  "name": "সিগমা ডিজিটাল স্ক্যান সেন্টার (Sigma Scan)",
+  "description": "সিগমা ডিজিটাল স্ক্যান সেন্টার অনলাইন ডায়াগনস্টিক বুকিং ও সিরিয়াল ট্র্যাকিং অ্যাপ",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
