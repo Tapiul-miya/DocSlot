@@ -29,12 +29,12 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # ৫. ফায়ারবেস হোস্টিং ও রুলস ডিপ্লয় করুন
+      # ৫. ফায়ারবেস হোস্টিং ডিপ্লয় করুন
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT || secrets.FIREBASE_SERVICE_ACCOUNT_DOCSLOT }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           channelId: live
-          projectId: '${{ secrets.FIREBASE_PROJECT_ID || 'docslot' }}'
+          projectId: docslot
           target: docslot

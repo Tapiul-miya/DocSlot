@@ -1,13 +1,25 @@
-import { initializeApp } from 'firebase/app';
-import { initializeFirestore, collection } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { 
+  initializeFirestore, 
+  collection,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  setLogLevel
+} from 'firebase/firestore';
 import firebaseConfig from '../firebase-applet-config.json';
 
-const app = initializeApp(firebaseConfig);
+// Keep logs focused on critical errors
+setLogLevel('error');
 
-// Using experimentalForceLongPolling eliminates streaming probe errors in iframe & proxy environments
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
 export const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true,
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+  experimentalAutoDetectLongPolling: true,
 }, firebaseConfig.firestoreDatabaseId);
 
 export const bookingsCollection = collection(db, 'bookings');
 export const settingsCollection = collection(db, 'settings');
+
