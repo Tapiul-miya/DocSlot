@@ -3,6 +3,7 @@
     "rules": "firestore.rules"
   },
   "hosting": {
+    "site": "docslot",
     "public": "dist",
     "ignore": [
       "firebase.json",

@@ -2469,10 +2469,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Share QR Code Modal - ONLY QR is displayed, NO link/URL text */}
+      {/* Share QR Code Modal - QR and https://docslot.web.app sharing */}
       {showShareQrModal && (
         <div className="fixed inset-0 bg-slate-900/80 flex items-center justify-center p-4 z-50 backdrop-blur-xs animate-fade-in" id="share-qr-modal">
-          <div className="bg-[#11192d] border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center space-y-5 animate-scale-up">
+          <div className="bg-[#11192d] border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-scale-up">
             
             {/* Header */}
             <div className="flex justify-between items-center pb-2 border-b border-slate-800">
@@ -2481,8 +2481,8 @@ export default function App() {
                   <QrCode className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-slate-100">কিউআর কোড শেয়ার</h3>
-                  <p className="text-[10px] text-slate-400">সিগমা স্ক্যান সেন্টার বুকিং পোর্টাল</p>
+                  <h3 className="text-sm font-extrabold text-slate-100">কিউআর কোড ও লিঙ্ক শেয়ার</h3>
+                  <p className="text-[10px] text-slate-400">সিগমা স্ক্যান সেন্টার অনলাইন বুকিং</p>
                 </div>
               </div>
               <button
@@ -2493,20 +2493,39 @@ export default function App() {
               </button>
             </div>
 
-            {/* QR Code Container - ONLY QR displayed, NO link text */}
+            {/* QR Code Container */}
             <div className="flex flex-col items-center justify-center">
               <div className="bg-white p-5 rounded-2xl shadow-xl border-4 border-teal-500/20 inline-block">
                 <QRCodeCanvas
                   id="share-qr-canvas"
-                  value={window.location.origin}
-                  size={200}
+                  value="https://docslot.web.app/"
+                  size={190}
                   level="H"
                   marginSize={1}
                 />
               </div>
-              <p className="text-xs text-slate-300 font-medium mt-3 px-2">
+              <p className="text-xs text-slate-300 font-medium mt-2.5 px-2">
                 ক্যামেরা বা কিউআর স্ক্যানার দিয়ে স্ক্যান করুন
               </p>
+              
+              {/* Visible Live Link Badge */}
+              <div className="mt-2 bg-[#0c1322] border border-teal-500/30 rounded-xl px-3 py-1.5 flex items-center justify-between gap-2 max-w-full">
+                <span className="text-[11px] font-mono text-teal-300 truncate">https://docslot.web.app/</span>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText('https://docslot.web.app/');
+                      setSuccessToast('লিঙ্কটি কপি করা হয়েছে!');
+                    } catch {
+                      setErrorToast('কপি করতে ব্যর্থ হয়েছে');
+                    }
+                  }}
+                  className="text-[10px] bg-teal-600/30 hover:bg-teal-600/50 text-teal-200 px-2 py-0.5 rounded font-bold cursor-pointer transition shrink-0"
+                >
+                  কপি
+                </button>
+              </div>
             </div>
 
             {/* Actions: Download QR, Share, Close */}
@@ -2546,6 +2565,7 @@ export default function App() {
                                 await navigator.share({
                                   files: [file],
                                   title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার কিউআর কোড',
+                                  url: 'https://docslot.web.app/',
                                 });
                                 setSuccessToast('কিউআর কোড শেয়ার সম্পন্ন হয়েছে!');
                                 return;
@@ -2556,8 +2576,9 @@ export default function App() {
                           }
                           try {
                             await navigator.share({
-                              title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার',
-                              url: window.location.origin,
+                              title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার (Sigma Scan)',
+                              text: 'অনলাইন ডায়াগনস্টিক টেস্ট বুকিং ও সিরিয়াল ট্র্যাকিং',
+                              url: 'https://docslot.web.app/',
                             });
                             setSuccessToast('শেয়ার সম্পন্ন হয়েছে!');
                           } catch (e: any) {
@@ -2567,8 +2588,9 @@ export default function App() {
                       } else {
                         try {
                           await navigator.share({
-                            title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার',
-                            url: window.location.origin,
+                            title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার (Sigma Scan)',
+                            text: 'অনলাইন ডায়াগনস্টিক টেস্ট বুকিং ও সিরিয়াল ট্র্যাকিং',
+                            url: 'https://docslot.web.app/',
                           });
                           setSuccessToast('শেয়ার সম্পন্ন হয়েছে!');
                         } catch (e: any) {
@@ -2584,44 +2606,44 @@ export default function App() {
                 )}
               </div>
 
-                <button
-                  type="button"
-                  onClick={async () => {
-                    const shareUrl = window.location.origin;
-                    if (navigator.share) {
-                      try {
-                        await navigator.share({
-                          title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার',
-                          text: 'সিগমা ডিজিটাল স্ক্যান সেন্টার অনলাইন বুকিং পোর্টাল',
-                          url: shareUrl,
-                        });
-                        setSuccessToast('লিঙ্ক শেয়ার সম্পন্ন হয়েছে!');
-                        return;
-                      } catch (err: any) {
-                        if (err.name === 'AbortError') return;
-                      }
-                    }
+              <button
+                type="button"
+                onClick={async () => {
+                  const shareUrl = 'https://docslot.web.app/';
+                  if (navigator.share) {
                     try {
-                      await navigator.clipboard.writeText(shareUrl);
-                      setSuccessToast('অ্যাপ লিঙ্কটি কপি করা হয়েছে!');
-                    } catch (err) {
-                      console.error('Failed to copy:', err);
-                      setErrorToast('লিঙ্ক কপি করতে সমস্যা হয়েছে!');
+                      await navigator.share({
+                        title: 'সিগমা ডিজিটাল স্ক্যান সেন্টার (Sigma Scan)',
+                        text: 'সিগমা ডিজিটাল স্ক্যান সেন্টার অনলাইন বুকিং পোর্টাল',
+                        url: shareUrl,
+                      });
+                      setSuccessToast('লিঙ্ক শেয়ার সম্পন্ন হয়েছে!');
+                      return;
+                    } catch (err: any) {
+                      if (err.name === 'AbortError') return;
                     }
-                  }}
-                  className="w-full bg-[#1a233a] hover:bg-slate-800 text-teal-300 hover:text-teal-200 border border-teal-500/30 font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer transition"
-                >
-                  <Share2 className="h-3.5 w-3.5" />
-                  <span>লিঙ্ক শেয়ার করুন (Link Share)</span>
-                </button>
+                  }
+                  try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    setSuccessToast('https://docslot.web.app/ লিঙ্কটি কপি করা হয়েছে!');
+                  } catch (err) {
+                    console.error('Failed to copy:', err);
+                    setErrorToast('লিঙ্ক কপি করতে সমস্যা হয়েছে!');
+                  }
+                }}
+                className="w-full bg-[#1a233a] hover:bg-slate-800 text-teal-300 hover:text-teal-200 border border-teal-500/30 font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 cursor-pointer transition"
+              >
+                <Share2 className="h-3.5 w-3.5" />
+                <span>লিঙ্ক শেয়ার বা কপি করুন (https://docslot.web.app/)</span>
+              </button>
 
-                <button
-                  type="button"
-                  onClick={() => setShowShareQrModal(false)}
-                  className="w-full bg-[#11192d] hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-bold py-2 rounded-xl text-xs cursor-pointer transition border border-slate-800"
-                >
-                  বন্ধ করুন (Close)
-                </button>
+              <button
+                type="button"
+                onClick={() => setShowShareQrModal(false)}
+                className="w-full bg-[#11192d] hover:bg-slate-800 text-slate-400 hover:text-slate-200 font-bold py-2 rounded-xl text-xs cursor-pointer transition border border-slate-800"
+              >
+                বন্ধ করুন (Close)
+              </button>
             </div>
 
           </div>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "docslot"
+  },
+  "targets": {
+    "docslot": {
+      "hosting": {
+        "docslot": [
+          "docslot"
+        ]
+      }
+    }
+  }
+}
