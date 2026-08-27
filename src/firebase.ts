@@ -8,8 +8,8 @@ import {
 } from 'firebase/firestore';
 import firebaseConfig from '../firebase-applet-config.json';
 
-// Keep logs focused on critical errors
-setLogLevel('error');
+// Set log level to silent to suppress benign connection probe notices
+setLogLevel('silent');
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
@@ -17,7 +17,7 @@ export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({
     tabManager: persistentMultipleTabManager(),
   }),
-  experimentalAutoDetectLongPolling: true,
+  experimentalForceLongPolling: true,
 }, firebaseConfig.firestoreDatabaseId);
 
 export const bookingsCollection = collection(db, 'bookings');

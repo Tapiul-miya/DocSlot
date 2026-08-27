@@ -1,9 +1,9 @@
 {
   "projects": {
-    "default": "docslot"
+    "default": "gen-lang-client-0881564766"
   },
   "targets": {
-    "docslot": {
+    "gen-lang-client-0881564766": {
       "hosting": {
         "docslot": [
           "docslot"
